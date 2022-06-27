@@ -8,28 +8,12 @@ const Footer: React.FC = () => {
                 <Container>
                     <Grid container spacing={5}>
                         <Grid item xs={12} sm={4}>
-                            <Box borderBottom={1}>Footer Item1</Box>
-                            <Box>Footer SubItem1</Box>
-                            <Box>Footer SubItem2</Box>
-                            <Box>Footer SubItem3</Box>
-                            <Box>Footer SubItem4</Box>
-                            <Box>Footer SubItem5</Box>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Box borderBottom={1}>Footer Item2</Box>
-                            <Box>Footer SubItem1</Box>
-                            <Box>Footer SubItem2</Box>
-                            <Box>Footer SubItem3</Box>
-                            <Box>Footer SubItem4</Box>
-                            <Box>Footer SubItem5</Box>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Box borderBottom={1}>Footer Item3</Box>
-                            <Box>Footer SubItem1</Box>
-                            <Box>Footer SubItem2</Box>
-                            <Box>Footer SubItem3</Box>
-                            <Box>Footer SubItem4</Box>
-                            <Box>Footer SubItem5</Box>
+                            <Box borderBottom={1}>Contact</Box>
+                            <Box>Email</Box>
+                            <Box>Resume</Box>
+                            <Box>Github</Box>
+                            <Box>Website</Box>
+                            <Box>LinkedIn</Box>
                         </Grid>
                     </Grid>
                 </Container>

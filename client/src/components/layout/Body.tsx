@@ -5,11 +5,11 @@ import { DataTable, GlobalTemperatureChart, WorldDataChart, VerticalBarChartRena
 const Body: React.FC = () => {
     return (
         <Box p={5}>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
                 <GlobalTemperatureChart />
-                {/* <WorldDataChart />
+                <WorldDataChart />
                 <VerticalBarChartRename />
-                <Form />
+                {/* <Form />
                 <DataTable /> */}
             </Grid>
         </Box>

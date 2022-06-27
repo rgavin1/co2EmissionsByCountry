@@ -172,3 +172,11 @@ def getAllGlobalTemperatures(db: Session = Depends(get_db)):
 def getAllGlobalTemperatures(db: Session = Depends(get_db)):
     data = db.query(WorldCo2Data).filter(WorldCo2Data.entity == "World", WorldCo2Data.year == "2020").all()
     return { "data": data }
+
+@app.get("/country_population/{year}")
+def getAllCountryInformation(year: str, db: Session = Depends(get_db)):
+    data = db.query(CountryPopulation, WorldCo2Data.co2).select_from(WorldCo2Data).distinct(CountryPopulation.code).join(CountryPopulation, CountryPopulation.code == WorldCo2Data.iso_code).filter(CountryPopulation.year == year).all()
+    result = []
+    for i, tuple in data:
+        result.append({ "id": i.id, "entity": i.entity, "code": i.code, "year": i.year, "population": i.population, "co2": tuple,  })
+    return { "result": result }
