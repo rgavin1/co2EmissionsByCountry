@@ -180,3 +180,11 @@ def getAllCountryInformation(year: str, db: Session = Depends(get_db)):
     for i, tuple in data:
         result.append({ "id": i.id, "entity": i.entity, "code": i.code, "year": i.year, "population": i.population, "co2": tuple,  })
     return { "result": result }
+
+@app.get("/country_population/{country}/{year}")
+def getAllCountryInformation(country: str, year: str, db: Session = Depends(get_db)):
+    data = db.query(CountryPopulation, WorldCo2Data.co2).select_from(WorldCo2Data).distinct(CountryPopulation.code).join(CountryPopulation, CountryPopulation.code == WorldCo2Data.iso_code).filter(CountryPopulation.entity == country).filter(CountryPopulation.year == year).all()
+    result = []
+    for i, tuple in data:
+        result.append({ "id": i.id, "entity": i.entity, "code": i.code, "year": i.year, "population": i.population, "co2": tuple,  })
+    return { "result": result }

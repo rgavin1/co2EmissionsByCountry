@@ -1,55 +1,50 @@
 import React from 'react'
-import { Paper, Grid, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from '@mui/material';
-import axios from 'axios';
+import { Paper, Grid, FormControl, InputLabel, Select, Switch, MenuItem, SelectChangeEvent, FormControlLabel, FormGroup } from '@mui/material';
+import { useCountryPopulation, useYears } from '../../hooks';
+import Spinner from '../Spinner';
 
 const Form: React.FC = () => {
+    const { loading, countries, error } = useCountryPopulation();
+    const { loading: loadingYears, avaliableYears, error: yearsHasError } = useYears();
+
     const [selectedNewYear, setSelectedNewYear] = React.useState('');
-    const [avaliableYears, setAvaliableYears] = React.useState<any[]>([]);
+    const [selectedCountryName, setSelectedCountryName] = React.useState('');
 
-    React.useEffect(() => {
-        (async () => {
-            try {
-                const { data } = await axios.get(`http://localhost:8000/years`);
-                const years: any[] = data.data;
-                setAvaliableYears(years);
-            } catch (error) {
-                console.log(error)
-            }
-        })()
-    }, [])
-
-    const handleChange = (event: SelectChangeEvent) => {
+    const handleChangeYear = (event: SelectChangeEvent) => {
         setSelectedNewYear(event.target.value as string);
+    };
+    const handleChangeCountryName = (event: SelectChangeEvent) => {
+        setSelectedCountryName(event.target.value as string);
     };
 
     return (
         <Grid item xs={12} sm={12} md={3}>
             <Paper elevation={24}>
                 <Grid container p={2}>
-                    <FormControl fullWidth style={{ marginBottom: "15px" }}>
+                    {loading && loadingYears && !error && !yearsHasError ? <Spinner /> : <><FormControl fullWidth style={{ marginBottom: "15px" }}>
                         <InputLabel id="demo-simple-select-label">Country</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            value={selectedNewYear}
+                            value={selectedCountryName}
                             label="Country"
-                            onChange={handleChange}
+                            onChange={handleChangeCountryName}
                         >
-                            {avaliableYears.map((year: any) => <MenuItem value={year.year}>{year.year}</MenuItem>)}
+                            {countries.map((country: any, index) => <MenuItem key={index} value={country.entity}>{country.entity}</MenuItem>)}
                         </Select>
                     </FormControl>
                     <FormControl fullWidth>
-                        <InputLabel id="demo-simple-select-label">Year</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={selectedNewYear}
-                            label="Year"
-                            onChange={handleChange}
-                        >
-                            {avaliableYears.map((year: any) => <MenuItem value={year.year}>{year.year}</MenuItem>)}
-                        </Select>
-                    </FormControl>
+                            <InputLabel id="demo-simple-select-label">Year</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={selectedNewYear}
+                                label="Year"
+                                onChange={handleChangeYear}
+                            >
+                                {avaliableYears.map((year: string, index) => <MenuItem key={index} value={year}>{year}</MenuItem>)}
+                            </Select>
+                        </FormControl></>}
                 </Grid>
             </Paper>
         </Grid>

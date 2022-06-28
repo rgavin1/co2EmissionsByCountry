@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Grid } from '@mui/material';
 import { DataTable, GlobalTemperatureChart, WorldDataChart, VerticalBarChartRename, Form } from '../widgets';
 
@@ -8,9 +8,9 @@ const Body: React.FC = () => {
             <Grid container spacing={3}>
                 <GlobalTemperatureChart />
                 <WorldDataChart />
+                <Form />
                 <VerticalBarChartRename />
-                {/* <Form />
-                <DataTable /> */}
+                {/* <DataTable /> */}
             </Grid>
         </Box>
     )

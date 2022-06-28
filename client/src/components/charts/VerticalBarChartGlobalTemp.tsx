@@ -22,11 +22,7 @@ ChartJS.register(
 );
 
 const VerticalBarChartGlobalTemp: React.FC<{ globalData: GlobalAnnualTemperature[]; }> = ({ globalData }) => {
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-    };
-
+    const options = { responsive: true };
     const labels = [...globalData?.map(item => item.year)];
 
     const data = {
@@ -43,7 +39,7 @@ const VerticalBarChartGlobalTemp: React.FC<{ globalData: GlobalAnnualTemperature
 
     return (
         <Container style={{ paddingTop: "15px", paddingBottom: "15px" }}>
-            <div style={{ height: "100%", maxHeight: "230px" }}>
+            <div>
                 <Bar options={options} data={data} />
             </div>
         </Container>

@@ -9,7 +9,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { Container, Typography } from '@mui/material';
+import { Container } from '@mui/material';
 
 import { Spinner } from '..';
 import { useCountryPopulation } from '../../hooks';

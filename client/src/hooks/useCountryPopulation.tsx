@@ -22,7 +22,14 @@ const useCountryPopulation = () => {
             setLoading(false);
         })()
     }, [])
-    return { loading, countries, error };
+
+    const fetchCountryByYear = (country: string, year: string) => {
+        (async (country, year) => {
+            console.log('country', country)
+            console.log('year', year)
+        })()
+    }
+    return { loading, countries, fetchCountryByYear, error };
 }
 
 export default useCountryPopulation
