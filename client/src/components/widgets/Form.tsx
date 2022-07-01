@@ -15,6 +15,7 @@ const Form: React.FC = () => {
     };
     const handleChangeCountryName = (event: SelectChangeEvent) => {
         setSelectedCountryName(event.target.value as string);
+        // fetchCountryByYear(event.target.value as string, event.target.value as string)
     };
 
     return (

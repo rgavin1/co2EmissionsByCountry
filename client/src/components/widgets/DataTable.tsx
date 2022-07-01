@@ -1,7 +1,7 @@
 import React from 'react'
-import { Paper, Box } from '@mui/material';
+import { Paper, Box, Grid } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Country } from '../../types';
+import { useCountryPopulation } from '../../hooks';
 
 const columns: GridColDef[] = [
     {
@@ -29,7 +29,7 @@ const columns: GridColDef[] = [
         editable: false,
     },
     {
-        field: 'annual_co2_emissions',
+        field: 'co2',
         headerName: 'Annual CO2 Emissions',
         width: 190,
         editable: false,
@@ -40,40 +40,36 @@ const columns: GridColDef[] = [
         width: 190,
         editable: false,
     },
-    {
-        field: 'fossil_fuel',
-        headerName: 'Fossil Fuel (TWh)',
-        width: 190,
-        editable: false,
-    }
+    // {
+    //     field: 'fossil_fuel',
+    //     headerName: 'Fossil Fuel (TWh)',
+    //     width: 190,
+    //     editable: false,
+    // }
 ];
 
-const DataTable: React.FC = () => {
-    const [selectedCountryData, setSelectedCountryData] = React.useState<Country[]>([]);
-    const [selectedCountries, setSelectedCountries] = React.useState<any[]>([]);
-    const [returnedData, setReturnedData] = React.useState<Country[]>([]);
-
-    React.useEffect(() => {
-        setSelectedCountryData(returnedData.filter((country) => selectedCountries.includes(country.id)))
-    }, [selectedCountries])
-
+const DataTable: React.FC<{ setSelectedCountries: (c: any) => void; }> = ({ setSelectedCountries }) => {
+    const { countries, selectedCountries, userSelectedCountries } = useCountryPopulation();
     return (
+        <Grid item xs={12} sm={12} md={5}>
         <Paper>
-            <Box sx={{ height: 375, width: '100%' }}>
+                <Box sx={{ height: 400, width: '100%' }}>
                 <DataGrid
-                    rows={returnedData}
+                        rows={countries}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[10]}
                     checkboxSelection
                     disableSelectionOnClick
                     onSelectionModelChange={(newSelectionModel: any) => {
+                        userSelectedCountries(newSelectionModel);
                         setSelectedCountries(newSelectionModel);
                     }}
                     selectionModel={selectedCountries}
                 />
             </Box>
-        </Paper>
+            </Paper>
+        </Grid>
     )
 }
 export default DataTable

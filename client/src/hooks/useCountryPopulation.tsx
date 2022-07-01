@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { CountryWithFlag } from '../helper';
 import { Country } from '../types';
 
@@ -7,6 +7,7 @@ const useCountryPopulation = () => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [countries, setCountries] = useState<any[]>([]);
+    const [selectedCountries, setSelectedCountries] = React.useState<any[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -23,13 +24,11 @@ const useCountryPopulation = () => {
         })()
     }, [])
 
-    const fetchCountryByYear = (country: string, year: string) => {
-        (async (country, year) => {
-            console.log('country', country)
-            console.log('year', year)
-        })()
+    const userSelectedCountries = (country: any) => {
+        setSelectedCountries(country);
     }
-    return { loading, countries, fetchCountryByYear, error };
+
+    return { loading, countries, selectedCountries, userSelectedCountries, error };
 }
 
 export default useCountryPopulation
